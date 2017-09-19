@@ -16,6 +16,9 @@ class BasketballType extends AbstractType
             ->add('nickname', 'text', array('label' => 'Nick:'))
             ->add('height', 'text', array('label' => 'Wzrost:'))
             ->add('position', 'text', array('label' => 'Pozycja:'))
+            ->add('mainPhoto', 'text', array('label' => 'Zdjecie1:'))
+            ->add('secondPhoto', 'text', array('label' => 'Zdjecie2:'))
+            ->add('bestIn', 'text', array('label' => 'Specjalność:'))
             ->add('save', 'submit', array('label' => 'Dodaj'));
     }
 

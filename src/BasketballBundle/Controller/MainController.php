@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use BasketballBundle\Form\BasketballType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class MainController extends Controller
 {
@@ -27,6 +28,15 @@ class MainController extends Controller
     {
         $player = new Player();
         $form = $this->createForm(BasketballType::class, $player);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            $player = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($player);
+            $em->flush();
+            return new Response("Dodano nowego zawodnika");
+        }
         return $this->render('BasketballBundle:Main:add_player.html.twig', array(
             'form' => $form->createView()
         ));

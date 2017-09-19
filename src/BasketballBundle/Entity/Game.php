@@ -13,6 +13,16 @@ use Doctrine\ORM\Mapping as ORM;
 class Game
 {
     /**
+     * @ORM\ManyToOne(targetEntity="Team", inversedBy="Game")
+     */
+    private $team1;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Team", inversedBy="Game")
+     */
+    private $team2;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -27,20 +37,6 @@ class Game
      * @ORM\Column(name="gameDate", type="date")
      */
     private $gameDate;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="team1", type="integer")
-     */
-    private $team1;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="team2", type="integer")
-     */
-    private $team2;
 
     /**
      * @var int
@@ -95,52 +91,6 @@ class Game
     public function getGameDate()
     {
         return $this->gameDate;
-    }
-
-    /**
-     * Set team1
-     *
-     * @param integer $team1
-     * @return Game
-     */
-    public function setTeam1($team1)
-    {
-        $this->team1 = $team1;
-
-        return $this;
-    }
-
-    /**
-     * Get team1
-     *
-     * @return integer 
-     */
-    public function getTeam1()
-    {
-        return $this->team1;
-    }
-
-    /**
-     * Set team2
-     *
-     * @param integer $team2
-     * @return Game
-     */
-    public function setTeam2($team2)
-    {
-        $this->team2 = $team2;
-
-        return $this;
-    }
-
-    /**
-     * Get team2
-     *
-     * @return integer 
-     */
-    public function getTeam2()
-    {
-        return $this->team2;
     }
 
     /**

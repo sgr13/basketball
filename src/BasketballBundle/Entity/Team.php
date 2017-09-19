@@ -13,6 +13,36 @@ use Doctrine\ORM\Mapping as ORM;
 class Team
 {
     /**
+     * @ORM\OneToMany(targetEntity="Game", mappedBy="Team")
+     */
+    private $game;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Player", inversedBy="Team")
+     */
+    private $player1;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Player", inversedBy="Team")
+     */
+    private $player2;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Player", inversedBy="Team")
+     */
+    private $player3;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Player", inversedBy="Team")
+     */
+    private $player4;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Player", inversedBy="Team")
+     */
+    private $player5;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -27,42 +57,6 @@ class Team
      * @ORM\Column(name="date", type="date")
      */
     private $date;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="player1", type="integer")
-     */
-    private $player1;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="player2", type="integer")
-     */
-    private $player2;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="player3", type="integer")
-     */
-    private $player3;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="player4", type="integer")
-     */
-    private $player4;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="player5", type="integer")
-     */
-    private $player5;
-
 
     /**
      * Get id
@@ -98,22 +92,7 @@ class Team
     }
 
     /**
-     * Set player1
-     *
-     * @param integer $player1
-     * @return Team
-     */
-    public function setPlayer1($player1)
-    {
-        $this->player1 = $player1;
-
-        return $this;
-    }
-
-    /**
-     * Get player1
-     *
-     * @return integer 
+     * @return mixed
      */
     public function getPlayer1()
     {
@@ -121,22 +100,15 @@ class Team
     }
 
     /**
-     * Set player2
-     *
-     * @param integer $player2
-     * @return Team
+     * @param mixed $player1
      */
-    public function setPlayer2($player2)
+    public function setPlayer1($player1)
     {
-        $this->player2 = $player2;
-
-        return $this;
+        $this->player1 = $player1;
     }
 
     /**
-     * Get player2
-     *
-     * @return integer 
+     * @return mixed
      */
     public function getPlayer2()
     {
@@ -144,22 +116,15 @@ class Team
     }
 
     /**
-     * Set player3
-     *
-     * @param integer $player3
-     * @return Team
+     * @param mixed $player2
      */
-    public function setPlayer3($player3)
+    public function setPlayer2($player2)
     {
-        $this->player3 = $player3;
-
-        return $this;
+        $this->player2 = $player2;
     }
 
     /**
-     * Get player3
-     *
-     * @return integer 
+     * @return mixed
      */
     public function getPlayer3()
     {
@@ -167,22 +132,15 @@ class Team
     }
 
     /**
-     * Set player4
-     *
-     * @param integer $player4
-     * @return Team
+     * @param mixed $player3
      */
-    public function setPlayer4($player4)
+    public function setPlayer3($player3)
     {
-        $this->player4 = $player4;
-
-        return $this;
+        $this->player3 = $player3;
     }
 
     /**
-     * Get player4
-     *
-     * @return integer 
+     * @return mixed
      */
     public function getPlayer4()
     {
@@ -190,25 +148,28 @@ class Team
     }
 
     /**
-     * Set player5
-     *
-     * @param integer $player5
-     * @return Team
+     * @param mixed $player4
      */
-    public function setPlayer5($player5)
+    public function setPlayer4($player4)
     {
-        $this->player5 = $player5;
-
-        return $this;
+        $this->player4 = $player4;
     }
 
     /**
-     * Get player5
-     *
-     * @return integer 
+     * @return mixed
      */
     public function getPlayer5()
     {
         return $this->player5;
     }
+
+    /**
+     * @param mixed $player5
+     */
+    public function setPlayer5($player5)
+    {
+        $this->player5 = $player5;
+    }
+
+
 }
