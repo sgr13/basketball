@@ -2,8 +2,11 @@
 
 namespace BasketballBundle\Controller;
 
+use BasketballBundle\Entity\Player;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use BasketballBundle\Form\BasketballType;
+use Symfony\Component\HttpFoundation\Request;
 
 class MainController extends Controller
 {
@@ -20,10 +23,12 @@ class MainController extends Controller
     /**
      * @Route("/addPlayer")
      */
-    public function addPlayerAction()
+    public function addPlayerAction(Request $request)
     {
+        $player = new Player();
+        $form = $this->createForm(BasketballType::class, $player);
         return $this->render('BasketballBundle:Main:add_player.html.twig', array(
-            // ...
+            'form' => $form->createView()
         ));
     }
 
