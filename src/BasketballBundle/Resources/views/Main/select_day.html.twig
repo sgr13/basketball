@@ -1,0 +1,55 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}BasketballBundle:Main:selectDay{% endblock %}
+
+{% block body %}
+    {{ calendar.showCalendar }}
+    <h1>Welcome to the Main:selectDay page</h1>
+    <table border="solid" cellpadding="10">
+        <tr>
+            <th class="days">Pn</th>
+            <th class="days">Wt</th>
+            <th class="days">Śr</th>
+            <th class="days">Cz</th>
+            <th class="days">Pt</th>
+            <th class="days">Sb</th>
+            <th class="days">Nd</th>
+        </tr>
+        {% set day = 1 %}
+        {% for i in 1..calendar.getNumberOfWeeksInMonth %}
+            <tr>
+                {% for j in 1..7 %}
+                    {% if (j < calendar.getFirstDayInMonth and i == 1)  or (j > calendar.getDaysInMonth and i == 1) %}
+                        <td></td>
+                    {% elseif day < calendar.getDaysInMonth + 1 %}
+                        {% if i % 2 == 0 %}
+                            {% if j == 2 or j == 4 %}
+                                <td style="background-color: lightgray">
+                                    <a href="#"> {{ day }} </a>
+                                </td>
+                            {% else %}
+                                <td style="background-color: lightgray">
+                                    <a href="#"> {{ day }} </a>
+                                </td>
+                            {% endif %}
+                            {% set day = day + 1 %}
+                        {% else %}
+                            {% if j == 2 or j == 4 %}
+                                <td style="background-color: lightblue">
+                                    <a href="#"> {{ day }} </a>
+                                </td>
+                            {% else %}
+                                <td  style="background-color: lightblue">
+                                    <a href="#"> {{ day }} </a>
+                                </td>
+                            {% endif %}
+                            {% set day = day + 1 %}
+                        {% endif %}
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

@@ -2,6 +2,7 @@
 
 namespace BasketballBundle\Controller;
 
+use BasketballBundle\Entity\Calendar;
 use BasketballBundle\Entity\Player;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -39,6 +40,24 @@ class MainController extends Controller
         }
         return $this->render('BasketballBundle:Main:add_player.html.twig', array(
             'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * @Route("/selectDay")
+     */
+    public function selectDayAction()
+    {
+        $calendar = new Calendar();
+        var_dump($calendar);
+        $selectedMonth = $calendar->getMonth();
+        $selectedYear = $calendar->getYear();
+        $calendar->setMonth($selectedMonth);
+        $calendar->setYear($selectedYear);
+        var_dump($calendar);
+
+        return $this->render('BasketballBundle:Main:select_day.html.twig', array(
+            'calendar' => $calendar
         ));
     }
 
