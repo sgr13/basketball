@@ -13,10 +13,20 @@ use Symfony\Component\HttpFoundation\Response;
 class MainController extends Controller
 {
     /**
-     * @Route("/addGame")
+     * @Route("/addGame/{year}/{month}/{day}/{noDay}", name="addGame")
      */
-    public function addGameAction()
+    public function addGameAction(Request $request, $year, $month, $day, $noDay)
     {
+        $em = $this->getDoctrine()->getManager();
+        $month = $em->getRepository('BasketballBundle:Game')->getChangedDigit($month);
+
+        $session = $request->getSession();
+        $session->set('year', $year);
+        $session->set('month', $month);
+        $session->set('day', $day);
+        $session->set('noDay', $noDay);
+        
+
         return $this->render('BasketballBundle:Main:add_game.html.twig', array(
             // ...
         ));
@@ -46,15 +56,22 @@ class MainController extends Controller
     /**
      * @Route("/selectDay")
      */
-    public function selectDayAction()
+    public function selectDayAction(Request $request)
     {
         $calendar = new Calendar();
-        var_dump($calendar);
         $selectedMonth = $calendar->getMonth();
         $selectedYear = $calendar->getYear();
+
+        if ($request->request->get('selectMonth')) {
+            $selectedMonth = $request->request->get('selectMonth');
+        }
+
+        if ($request->request->get('selectYear')) {
+            $selectedYear = $request->request->get('selectYear');
+        }
+
         $calendar->setMonth($selectedMonth);
         $calendar->setYear($selectedYear);
-        var_dump($calendar);
 
         return $this->render('BasketballBundle:Main:select_day.html.twig', array(
             'calendar' => $calendar

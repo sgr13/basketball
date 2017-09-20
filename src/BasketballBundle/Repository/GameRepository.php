@@ -12,4 +12,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class GameRepository extends EntityRepository
 {
+    public function getChangedDigit($number)
+    {
+        $number = str_split($number);
+        if ($number[0] == 0) {
+            $number[0] = '';
+        }
+        $number = implode('', $number);
+
+        return $number;
+    }
 }
