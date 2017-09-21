@@ -170,6 +170,4 @@ class Team
     {
         $this->player5 = $player5;
     }
-
-
 }

@@ -4,6 +4,8 @@ namespace BasketballBundle\Controller;
 
 use BasketballBundle\Entity\Calendar;
 use BasketballBundle\Entity\Player;
+use BasketballBundle\Entity\Team;
+use BasketballBundle\Form\TeamType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use BasketballBundle\Form\BasketballType;
@@ -25,10 +27,13 @@ class MainController extends Controller
         $session->set('month', $month);
         $session->set('day', $day);
         $session->set('noDay', $noDay);
-        
+
+        $team = new Team();
+        $form = $this->createForm(TeamType::class, $team);
+
 
         return $this->render('BasketballBundle:Main:add_game.html.twig', array(
-            // ...
+            'form' => $form->createView()
         ));
     }
 
