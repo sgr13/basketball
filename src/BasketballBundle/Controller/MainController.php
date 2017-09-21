@@ -31,11 +31,25 @@ class MainController extends Controller
         $team = new Team();
         $form = $this->createForm(TeamType::class, $team);
 
+        if ($request->request->get('gameType')) {
+            var_dump($request);
+        }
+
 
         return $this->render('BasketballBundle:Main:add_game.html.twig', array(
             'form' => $form->createView()
         ));
     }
+//
+//    /**
+//     * @Route("/ajax", name="ajax")
+//     */
+//    public function ajaxAction(Request $request)
+//    {
+//        $data = $request->request->get('gameType');
+//
+//        return new response($form);
+//    }
 
     /**
      * @Route("/addPlayer")

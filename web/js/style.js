@@ -33,4 +33,50 @@ $(document).ready(function () {
     } else {
         $('#2018').attr('selected', 'selected');
     }
+
+    //$("#gameTypeSelect").click(function() {
+    //    $(this).closest("form").submit();
+    //})
+    //
+    //$('#gameTypeSelect input').click(function(e){
+    //    var gameType = $(this).attr('value');
+    //    alert(gameType);
+    //    $.ajax({
+    //        method: 'POST',
+    //        url: "/ajax",
+    //        // OR: url: "/Manufacturer", if you don't want to install FOSJsRoutingBundle
+    //        data: { gameType:gameType }
+    //    }).done(function(response){
+    //        console.log(response);
+    //        alert("ok");
+    //    }).fail(function(XMLHttpRequest, textStatus, errorThrown){
+    //        console.log(textStatus + ' ' + errorThrown);
+    //    })
+    //});
+
+    function showPlayers(players) {
+        if (players != 5) {
+            for (var i = 5; i > players; i--) {
+                $('#player' + i).parent().css('display', 'none');
+            }
+        }
+        for (var i = 2; i <= players; i++) {
+            $('#player' + i).parent().show();
+        }
+    }
+
+    $('#gameTypeSelect input').click(function () {
+            var i = $(this).attr('value');
+            if (i == 2) {
+                showPlayers(i);
+            } else if  (i == 3) {
+                showPlayers(i);
+            } else if (i == 4) {
+                showPlayers(i)
+            } else if (i == 5) {
+                showPlayers(i)
+            }
+
+
+    })
 });
