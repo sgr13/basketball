@@ -3,6 +3,7 @@
 namespace BasketballBundle\Controller;
 
 use BasketballBundle\Entity\Calendar;
+use BasketballBundle\Entity\Game;
 use BasketballBundle\Entity\Player;
 use BasketballBundle\Entity\Team;
 use BasketballBundle\Form\TeamType;
@@ -15,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 class MainController extends Controller
 {
     /**
-     * @Route("/addGame/{year}/{month}/{day}/{noDay}", name="addGame")
+     * @Route("/selectGameType/{year}/{month}/{day}/{noDay}", name="selectGameType")
      */
     public function addGameAction(Request $request, $year, $month, $day, $noDay)
     {
@@ -32,57 +33,49 @@ class MainController extends Controller
         $session->set('noDay', $noDay);
         $session->set('date', $date);
 
-        return $this->render('BasketballBundle:Main:add_game.html.twig', array(
+        return $this->render('BasketballBundle:Main:select_game_type.html.twig', array(
             'allPlayers' => $allPlayers
         ));
     }
 
     /**
-     * @Route("/addScore")
+     * @Route("/addTeam")
      */
-    public function addScoreAction(Request $request)
+    public function addTeamAction(Request $request)
     {
-        $firstTeam = $request->request->get('team1');
-        $secondTeam = $request->request->get('team2');
+        $gameType = $request->request->get('gameType');
+        $game = new Game();
         $session = $request->getSession();
-        $session->set('firstTeam', $firstTeam);
-        $session->set('secondTeam', $secondTeam);
-        $date = $session->get('date');
 
-        $firstTeamReady = new Team();
-        $firstTeamReady->setDate($date);
+        if ($gameType != null) {
+            $form = $this->createForm(new TeamType(), $game, array(
+                $gameType => true
+            ));
+            $session->set('gameType', $gameType);
 
-        $firstTeamReady->setPlayer1($firstTeam[0]);
-        $firstTeamReady->setPlayer2($firstTeam[1]);
-        $firstTeamReady->setPlayer3($firstTeam[2]);
-        $firstTeamReady->setPlayer4($firstTeam[3]);
-        $firstTeamReady->setPlayer5($firstTeam[4]);
-
-        var_dump($firstTeamReady);
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($firstTeamReady);
-        $em->flush();
-
-        if ($request->request->get('firstTeamScore')) {
-            $firstTeamScore = $request->request->get(('firstTeamScore'));
-            $secondTeamScore = $request->request->get('secondTeamScore');
+        } else {
+            $gameType = $session->get('gameType');
+            $form = $this->createForm(new TeamType(), $game, array(
+                $gameType => true
+            ));
         }
 
-        return $this->render('BasketballBundle:Main:addScore.html.twig', array(
-            // ...
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            $game = $form->getData();
+            $game->setDate($session->get('date'));
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($game);
+            $em->flush();
+
+            return $this->redirectToRoute('selectDay');
+        }
+
+        return $this->render('BasketballBundle:Main:addTeam.html.twig', array(
+            'form' => $form->createView()
         ));
     }
-//
-//    /**
-//     * @Route("/ajax", name="ajax")
-//     */
-//    public function ajaxAction(Request $request)
-//    {
-//        $data = $request->request->get('gameType');
-//
-//        return new response($form);
-//    }
 
     /**
      * @Route("/addPlayer")
@@ -106,7 +99,7 @@ class MainController extends Controller
     }
 
     /**
-     * @Route("/selectDay")
+     * @Route("/selectDay", name="selectDay")
      */
     public function selectDayAction(Request $request)
     {
@@ -176,16 +169,6 @@ class MainController extends Controller
     public function showAllAction()
     {
         return $this->render('BasketballBundle:Main:show_all.html.twig', array(
-            // ...
-        ));
-    }
-
-    /**
-     * @Route("/showGame")
-     */
-    public function showGameAction()
-    {
-        return $this->render('BasketballBundle:Main:show_game.html.twig', array(
             // ...
         ));
     }

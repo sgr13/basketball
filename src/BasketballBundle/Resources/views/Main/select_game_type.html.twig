@@ -1,0 +1,14 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}BasketballBundle:Main:addGame{% endblock %}
+
+{% block body %}
+<h1>Welcome to the Main:addGame page</h1>
+    <h2>Wybierz typ gry:</h2>
+    <form id="gameTypeSelect" method="post" action="{{ asset("addTeam") }}">
+        <label><input type="radio" name="gameType"  value="2">2 vs. 2 |</label>
+        <label><input type="radio" name="gameType" value="3">3 vs. 3 |</label>
+        <label><input type="radio" name="gameType" value="4">4 vs. 4 |</label>
+        <label><input type="radio" name="gameType" checked value="5">5 vs. 5</label><br>
+    </form>
+{% endblock %}

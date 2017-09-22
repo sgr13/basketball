@@ -34,29 +34,16 @@ $(document).ready(function () {
         $('#2018').attr('selected', 'selected');
     }
 
-    var teamSelectClone = $('.teamSelectForm').clone();
-
-    function showPlayers(players) {
-        if (players != 5) {
-            $(".teamSelectForm").replaceWith(teamSelectClone.clone());
-            for (var i = 5; i > players; i--) {
-                $('.player' + i).html('');
-            }
-        } else {
-            $(".teamSelectForm").replaceWith(teamSelectClone.clone());
-        }
-    }
 
     $('#gameTypeSelect input').click(function () {
-            var i = $(this).attr('value');
-            if (i == 2) {
-                showPlayers(i);
-            } else if  (i == 3) {
-                showPlayers(i);
-            } else if (i == 4) {
-                showPlayers(i)
-            } else if (i == 5) {
-                showPlayers(i)
-            }
-    })
+        $(this).closest("form").submit();
+    });
+
+    var first = $('#p1t1');
+
+    first.parent().parent().css('background-color', 'lightblue');
+    first.parent().parent().prepend("<p>Drużyna 1 - <b>Biali</b></p>");
+
+    var second = $('#p1t2');
+    second.parent().prepend("<hr>Drużyna 2 - <b>Czarni</b><br><br>");
 });

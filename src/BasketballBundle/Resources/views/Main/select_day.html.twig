@@ -52,14 +52,14 @@
                             {% if j == 2 or j == 4 %}
                                 <td style="background-color: lightgray">
                                     <a id="availableDay" style="text-decoration: underline"
-                                       href="{{ path('addGame', {'year': calendar.getYear, 'month': calendar.getMonth, 'day': day, 'noDay': j}) }}">
+                                       href="{{ path('selectGameType', {'year': calendar.getYear, 'month': calendar.getMonth, 'day': day, 'noDay': j}) }}">
                                         {{ day }}
                                     </a>
                                 </td>
                             {% else %}
                                 <td style="background-color: lightgray">
                                     <a id="availableDay" style="text-decoration: underline"
-                                       href="{{ path('addGame', {'year': calendar.getYear, 'month': calendar.getMonth, 'day': day, 'noDay': j}) }}">
+                                       href="{{ path('selectGameType', {'year': calendar.getYear, 'month': calendar.getMonth, 'day': day, 'noDay': j}) }}">
                                         {{ day }}
                                     </a>
                                 </td>
@@ -69,14 +69,14 @@
                             {% if j == 2 or j == 4 %}
                                 <td style="background-color: lightblue">
                                     <a id="availableDay" style="text-decoration: underline"
-                                       href="{{ path('addGame', {'year': calendar.getYear, 'month': calendar.getMonth, 'day': day, 'noDay': j}) }}">
+                                       href="{{ path('selectGameType', {'year': calendar.getYear, 'month': calendar.getMonth, 'day': day, 'noDay': j}) }}">
                                         {{ day }}
                                     </a>
                                 </td>
                             {% else %}
                                 <td  style="background-color: lightblue">
                                     <a id="availableDay" style="text-decoration: underline"
-                                       href="{{ path('addGame', {'year': calendar.getYear, 'month': calendar.getMonth, 'day': day, 'noDay': j}) }}">
+                                       href="{{ path('selectGameType', {'year': calendar.getYear, 'month': calendar.getMonth, 'day': day, 'noDay': j}) }}">
                                         {{ day }}
                                     </a>
                                 </td>

@@ -13,14 +13,54 @@ use Doctrine\ORM\Mapping as ORM;
 class Game
 {
     /**
-     * @ORM\ManyToOne(targetEntity="Team", inversedBy="Game")
+     * @ORM\ManyToOne(targetEntity="Player", inversedBy="game")
      */
-    private $team1;
+    private $p1t1;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Team", inversedBy="Game")
+     * @ORM\ManyToOne(targetEntity="Player", inversedBy="game")
      */
-    private $team2;
+    private $p2t1;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Player", inversedBy="game")
+     */
+    private $p3t1;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Player", inversedBy="game")
+     */
+    private $p4t1;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Player", inversedBy="game")
+     */
+    private $p5t1;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Player", inversedBy="game")
+     */
+    private $p1t2;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Player", inversedBy="game")
+     */
+    private $p2t2;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Player", inversedBy="game")
+     */
+    private $p3t2;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Player", inversedBy="game")
+     */
+    private $p4t2;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Player", inversedBy="game")
+     */
+    private $p5t2;
 
     /**
      * @var int
@@ -32,32 +72,25 @@ class Game
     private $id;
 
     /**
-     * @var \DateTime
+     * @var string
      *
-     * @ORM\Column(name="gameDate", type="date")
+     * @ORM\Column(name="date", type="string", length=255)
      */
-    private $gameDate;
+    private $date;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="team1Score", type="integer")
+     * @ORM\Column(name="t1score", type="integer")
      */
-    private $team1Score;
+    private $t1score;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="team2Score", type="integer")
+     * @ORM\Column(name="t2score", type="integer")
      */
-    private $team2Score;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="bestPlayer", type="integer")
-     */
-    private $bestPlayer;
+    private $t2score;
 
 
     /**
@@ -71,94 +104,233 @@ class Game
     }
 
     /**
-     * Set gameDate
+     * Set date
      *
-     * @param \DateTime $gameDate
+     * @param string $date
      * @return Game
      */
-    public function setGameDate($gameDate)
+    public function setDate($date)
     {
-        $this->gameDate = $gameDate;
+        $this->date = $date;
 
         return $this;
     }
 
     /**
-     * Get gameDate
+     * Get date
      *
-     * @return \DateTime 
+     * @return string 
      */
-    public function getGameDate()
+    public function getDate()
     {
-        return $this->gameDate;
+        return $this->date;
     }
 
     /**
-     * Set team1Score
+     * Set t1score
      *
-     * @param integer $team1Score
+     * @param integer $t1score
      * @return Game
      */
-    public function setTeam1Score($team1Score)
+    public function setT1score($t1score)
     {
-        $this->team1Score = $team1Score;
+        $this->t1score = $t1score;
 
         return $this;
     }
 
     /**
-     * Get team1Score
+     * Get t1score
      *
      * @return integer 
      */
-    public function getTeam1Score()
+    public function getT1score()
     {
-        return $this->team1Score;
+        return $this->t1score;
     }
 
     /**
-     * Set team2Score
+     * Set t2score
      *
-     * @param integer $team2Score
+     * @param integer $t2score
      * @return Game
      */
-    public function setTeam2Score($team2Score)
+    public function setT2score($t2score)
     {
-        $this->team2Score = $team2Score;
+        $this->t2score = $t2score;
 
         return $this;
     }
 
     /**
-     * Get team2Score
+     * Get t2score
      *
      * @return integer 
      */
-    public function getTeam2Score()
+    public function getT2score()
     {
-        return $this->team2Score;
+        return $this->t2score;
     }
 
     /**
-     * Set bestPlayer
-     *
-     * @param integer $bestPlayer
-     * @return Game
+     * @return mixed
      */
-    public function setBestPlayer($bestPlayer)
+    public function getP1t1()
     {
-        $this->bestPlayer = $bestPlayer;
-
-        return $this;
+        return $this->p1t1;
     }
 
     /**
-     * Get bestPlayer
-     *
-     * @return integer 
+     * @param mixed $p1t1
      */
-    public function getBestPlayer()
+    public function setP1t1($p1t1)
     {
-        return $this->bestPlayer;
+        $this->p1t1 = $p1t1;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getP2t1()
+    {
+        return $this->p2t1;
+    }
+
+    /**
+     * @param mixed $p2t1
+     */
+    public function setP2t1($p2t1)
+    {
+        $this->p2t1 = $p2t1;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getP3t1()
+    {
+        return $this->p3t1;
+    }
+
+    /**
+     * @param mixed $p3t1
+     */
+    public function setP3t1($p3t1)
+    {
+        $this->p3t1 = $p3t1;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getP4t1()
+    {
+        return $this->p4t1;
+    }
+
+    /**
+     * @param mixed $p4t1
+     */
+    public function setP4t1($p4t1)
+    {
+        $this->p4t1 = $p4t1;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getP5t1()
+    {
+        return $this->p5t1;
+    }
+
+    /**
+     * @param mixed $p5t1
+     */
+    public function setP5t1($p5t1)
+    {
+        $this->p5t1 = $p5t1;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getP1t2()
+    {
+        return $this->p1t2;
+    }
+
+    /**
+     * @param mixed $p1t2
+     */
+    public function setP1t2($p1t2)
+    {
+        $this->p1t2 = $p1t2;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getP2t2()
+    {
+        return $this->p2t2;
+    }
+
+    /**
+     * @param mixed $p2t2
+     */
+    public function setP2t2($p2t2)
+    {
+        $this->p2t2 = $p2t2;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getP3t2()
+    {
+        return $this->p3t2;
+    }
+
+    /**
+     * @param mixed $p3t2
+     */
+    public function setP3t2($p3t2)
+    {
+        $this->p3t2 = $p3t2;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getP4t2()
+    {
+        return $this->p4t2;
+    }
+
+    /**
+     * @param mixed $p4t2
+     */
+    public function setP4t2($p4t2)
+    {
+        $this->p4t2 = $p4t2;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getP5t2()
+    {
+        return $this->p5t2;
+    }
+
+    /**
+     * @param mixed $p5t2
+     */
+    public function setP5t2($p5t2)
+    {
+        $this->p5t2 = $p5t2;
+    }
+
+    
 }

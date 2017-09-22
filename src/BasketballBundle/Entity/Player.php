@@ -13,9 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
 class Player
 {
     /**
-     * @ORM\OneToMany(targetEntity="Team", mappedBy="Player")
+     * @ORM\OneToMany(targetEntity="Game", mappedBy="player")
      */
-    private $team;
+    private $game;
 
     /**
      * @var int
