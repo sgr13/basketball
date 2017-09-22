@@ -34,34 +34,16 @@ $(document).ready(function () {
         $('#2018').attr('selected', 'selected');
     }
 
-    //$("#gameTypeSelect").click(function() {
-    //    $(this).closest("form").submit();
-    //})
-    //
-    //$('#gameTypeSelect input').click(function(e){
-    //    var gameType = $(this).attr('value');
-    //    alert(gameType);
-    //    $.ajax({
-    //        method: 'POST',
-    //        url: "/ajax",
-    //        // OR: url: "/Manufacturer", if you don't want to install FOSJsRoutingBundle
-    //        data: { gameType:gameType }
-    //    }).done(function(response){
-    //        console.log(response);
-    //        alert("ok");
-    //    }).fail(function(XMLHttpRequest, textStatus, errorThrown){
-    //        console.log(textStatus + ' ' + errorThrown);
-    //    })
-    //});
+    var teamSelectClone = $('.teamSelectForm').clone();
 
     function showPlayers(players) {
         if (players != 5) {
+            $(".teamSelectForm").replaceWith(teamSelectClone.clone());
             for (var i = 5; i > players; i--) {
-                $('#player' + i).parent().css('display', 'none');
+                $('.player' + i).html('');
             }
-        }
-        for (var i = 2; i <= players; i++) {
-            $('#player' + i).parent().show();
+        } else {
+            $(".teamSelectForm").replaceWith(teamSelectClone.clone());
         }
     }
 
@@ -76,7 +58,5 @@ $(document).ready(function () {
             } else if (i == 5) {
                 showPlayers(i)
             }
-
-
     })
 });

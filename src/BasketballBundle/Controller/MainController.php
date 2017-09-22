@@ -21,23 +21,56 @@ class MainController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $month = $em->getRepository('BasketballBundle:Game')->getChangedDigit($month);
+        $playersRepository = $this->getDoctrine()->getRepository('BasketballBundle:Player');
+        $allPlayers = $playersRepository->findAll();
+        $date = $year . '/' . $month . '/' . $day;
 
         $session = $request->getSession();
         $session->set('year', $year);
         $session->set('month', $month);
         $session->set('day', $day);
         $session->set('noDay', $noDay);
-
-        $team = new Team();
-        $form = $this->createForm(TeamType::class, $team);
-
-        if ($request->request->get('gameType')) {
-            var_dump($request);
-        }
-
+        $session->set('date', $date);
 
         return $this->render('BasketballBundle:Main:add_game.html.twig', array(
-            'form' => $form->createView()
+            'allPlayers' => $allPlayers
+        ));
+    }
+
+    /**
+     * @Route("/addScore")
+     */
+    public function addScoreAction(Request $request)
+    {
+        $firstTeam = $request->request->get('team1');
+        $secondTeam = $request->request->get('team2');
+        $session = $request->getSession();
+        $session->set('firstTeam', $firstTeam);
+        $session->set('secondTeam', $secondTeam);
+        $date = $session->get('date');
+
+        $firstTeamReady = new Team();
+        $firstTeamReady->setDate($date);
+
+        $firstTeamReady->setPlayer1($firstTeam[0]);
+        $firstTeamReady->setPlayer2($firstTeam[1]);
+        $firstTeamReady->setPlayer3($firstTeam[2]);
+        $firstTeamReady->setPlayer4($firstTeam[3]);
+        $firstTeamReady->setPlayer5($firstTeam[4]);
+
+        var_dump($firstTeamReady);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($firstTeamReady);
+        $em->flush();
+
+        if ($request->request->get('firstTeamScore')) {
+            $firstTeamScore = $request->request->get(('firstTeamScore'));
+            $secondTeamScore = $request->request->get('secondTeamScore');
+        }
+
+        return $this->render('BasketballBundle:Main:addScore.html.twig', array(
+            // ...
         ));
     }
 //

@@ -1,0 +1,15 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}BasketballBundle:Main:deleteGame{% endblock %}
+
+{% block body %}
+    <h1>Welcome to the Main:deleteGame page</h1>
+    Podaj wynik spotkania:
+    <form action="{{ asset('addScore') }}" method="post">
+        Drużyna 1:<br>
+        <input type="number" name="firstTeamScore"><br>
+        Drużyna 2:<br>
+        <input type="number" name="secondTeamScore"><br>
+        <input type="submit" value="Dodaj">
+    </form>
+{% endblock %}

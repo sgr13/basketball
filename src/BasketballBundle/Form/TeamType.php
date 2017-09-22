@@ -28,7 +28,7 @@ class TeamType extends AbstractType
             ->add('player5', EntityType::class, array(
                 'class' => 'BasketballBundle:Player',
                 'choice_label' => 'name', 'label' => 'Zawodnik nr 5:'))
-            ->add('save', 'submit', array('label' => 'Dodaj'));
+            ->add('save', 'submit', array('label' => 'Zapisz'));
     }
 
     public function getName()
