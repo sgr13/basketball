@@ -3,5 +3,51 @@
 {% block title %}BasketballBundle:Main:showAll{% endblock %}
 
 {% block body %}
-<h1>Welcome to the Main:showAll page</h1>
+    <h1>Historia spotkań:</h1>
+    <ul>
+        {% for game in allGames %}
+            {#{% if game.p5t1 is null %}#}
+                {#{% if game.p4t1 is null %}#}
+                    {#{% if game.p3t1 is null %}#}
+                        {#{% set numberOfPlayers = 2 %}#}
+                    {#{% else %}#}
+                        {#{% set numberOfPlayers = 3 %}#}
+                    {#{% endif %}#}
+                {#{% else %}#}
+                    {#{% set numberOfPlayers = 4 %}#}
+                {#{% endif %}#}
+            {#{% else %}#}
+                {#{% set numberOfPlayers = 5 %}#}
+            {#{% endif %}#}
+            <li>Wynik: <b>{{ game.t1score }} : {{ game.t2score }} </b></li>
+            <li>
+                {{ game.p1t1.name }},
+                {{ game.p2t1.name }},
+                {% if game.p3t1 is not null %}
+                    {{ game.p3t1.name }},
+                {% endif %}
+                {% if game.p4t1 is not null %}
+                    {{ game.p4t1.name }},
+                {% endif %}
+                {% if game.p5t1 is not null %}
+                    {{ game.p5t1.name }}
+                {% endif %}
+                <b>VS.</b>
+                {{ game.p1t2.name }},
+                {{ game.p2t2.name }},
+                {% if game.p3t2 is not null %}
+                    {{ game.p3t2.name }},
+                {% endif %}
+                {% if game.p4t2 is not null %}
+                    {{ game.p4t2.name }},
+                {% endif %}
+                {% if game.p5t2 is not null %}
+                    {{ game.p5t2.name }}
+                {% endif %}
+            </li>
+            <li><a href="{{ asset('editGame') }}">Edytuj</a></li>
+            <li><a href="{{ asset('deleteGame') }}">Usuń</a> </li>
+            <hr>
+        {% endfor %}
+    </ul>
 {% endblock %}

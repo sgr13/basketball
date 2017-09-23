@@ -1,0 +1,13 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}BasketballBundle:Main:addPlayer{% endblock %}
+
+{% block body %}
+    <h1>Panel Administracyjny:</h1>
+    <h2><a href="{{ asset('selectDay') }}">Dodaj Mecz</a></h2>
+    <h2><a href="{{ asset('addPlayer') }}">Dodaj Zawodnika</a></h2>
+    <h2><a href="{{ asset('showAll') }}">Pokaż Mecze</a></h2>
+    <h2><a href="{{ asset('showAllPlayers') }}">Pokaż Zawodników</a></h2>
+
+
+{% endblock %}

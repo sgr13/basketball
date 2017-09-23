@@ -69,7 +69,7 @@ class MainController extends Controller
             $em->persist($game);
             $em->flush();
 
-            return $this->redirectToRoute('selectDay');
+            return $this->redirectToRoute('admin');
         }
 
         return $this->render('BasketballBundle:Main:addTeam.html.twig', array(
@@ -124,12 +124,22 @@ class MainController extends Controller
     }
 
     /**
+     * @Route("/admin", name="admin")
+     */
+    public function adminAction()
+    {
+        return $this->render('BasketballBundle:Main:admin.html.twig', array(
+
+        ));
+    }
+
+    /**
      * @Route("/editPlayer")
      */
     public function editPlayerAction()
     {
         return $this->render('BasketballBundle:Main:edit_player.html.twig', array(
-            // ...
+
         ));
     }
 
@@ -166,19 +176,20 @@ class MainController extends Controller
     /**
      * @Route("/showAll")
      */
-    public function showAllAction()
+    public function showAllAction(Request $request)
     {
+        $allGames = $this->getDoctrine()->getRepository('BasketballBundle:Game')->findAll();
         return $this->render('BasketballBundle:Main:show_all.html.twig', array(
-            // ...
+            'allGames' => $allGames
         ));
     }
 
     /**
-     * @Route("/ahowPlayer")
+     * @Route("/showPlayer")
      */
     public function ahowPlayerAction()
     {
-        return $this->render('BasketballBundle:Main:ahow_player.html.twig', array(
+        return $this->render('BasketballBundle:Main:show_player.html.twig', array(
             // ...
         ));
     }
