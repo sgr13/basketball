@@ -3,5 +3,9 @@
 {% block title %}BasketballBundle:Main:showAllPlayers{% endblock %}
 
 {% block body %}
-
+    <ol>
+        {% for player in allPlayers %}
+            <li>{{ player.name }} - <a href="{{ path('showPlayer', {'id': player.id}) }}">Edytuj</a></li>
+        {% endfor %}
+    </ol>
 {% endblock %}

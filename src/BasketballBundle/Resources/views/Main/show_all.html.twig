@@ -45,8 +45,8 @@
                     {{ game.p5t2.name }}
                 {% endif %}
             </li>
-            <li><a href="{{ asset('editGame') }}">Edytuj</a></li>
-            <li><a href="{{ asset('deleteGame') }}">Usuń</a> </li>
+            <li><a href="{{ path('editGame', {'id': game.id })}}">Edytuj</a></li>
+            <li><a href="{{ path('deleteGame', {'id': game.id })}}">Usuń</a> </li>
             <hr>
         {% endfor %}
     </ul>

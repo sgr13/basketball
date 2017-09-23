@@ -92,6 +92,13 @@ class Game
      */
     private $t2score;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="gameType", type="string", length=255)
+     */
+    private $gameType;
+
 
     /**
      * Get id
@@ -332,5 +339,19 @@ class Game
         $this->p5t2 = $p5t2;
     }
 
-    
+    /**
+     * @return string
+     */
+    public function getGameType()
+    {
+        return $this->gameType;
+    }
+
+    /**
+     * @param string $gameType
+     */
+    public function setGameType($gameType)
+    {
+        $this->gameType = $gameType;
+    }
 }

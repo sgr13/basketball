@@ -12,6 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use BasketballBundle\Form\BasketballType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class MainController extends Controller
 {
@@ -27,10 +28,6 @@ class MainController extends Controller
         $date = $year . '/' . $month . '/' . $day;
 
         $session = $request->getSession();
-        $session->set('year', $year);
-        $session->set('month', $month);
-        $session->set('day', $day);
-        $session->set('noDay', $noDay);
         $session->set('date', $date);
 
         return $this->render('BasketballBundle:Main:select_game_type.html.twig', array(
@@ -60,11 +57,11 @@ class MainController extends Controller
             ));
         }
 
-
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             $game = $form->getData();
             $game->setDate($session->get('date'));
+            $game->setGameType($session->get('gameType'));
             $em = $this->getDoctrine()->getManager();
             $em->persist($game);
             $em->flush();
@@ -134,43 +131,61 @@ class MainController extends Controller
     }
 
     /**
-     * @Route("/editPlayer")
+     * @Route("/showPlayer/{id}", name="showPlayer")
      */
-    public function editPlayerAction()
+    public function editPlayerAction(Request $request, $id)
     {
+        $player = $this->getDoctrine()->getRepository('BasketballBundle:Player')->find($id);
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createForm(new BasketballType(), $player);
+        $form->handleRequest($request);
         return $this->render('BasketballBundle:Main:edit_player.html.twig', array(
-
+            'form' => $form->createView()
         ));
     }
 
     /**
-     * @Route("/deletePlayer")
+     * @Route("/editGame/{id}", name="editGame")
      */
-    public function deletePlayerAction()
+    public function editGameAction(Request $request, $id)
     {
-        return $this->render('BasketballBundle:Main:delete_player.html.twig', array(
-            // ...
+        $game = $this->getDoctrine()->getRepository('BasketballBundle:Game')->find($id);
+        if (!$game) {
+            throw new NotFoundHttpException('Nie znaleziono meczu o podanym id!');
+        }
+        $gameType = $game->getGameType();
+        $form = $this->createForm(new TeamType(), $game, array(
+            $gameType => true
         ));
-    }
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            $em = $this->getDoctrine()->getManager();
+            $game = $form->getData();
+            $em->persist($game);
+            $em->flush();
 
-    /**
-     * @Route("/editGame")
-     */
-    public function editGameAction()
-    {
+            return $this->redirectToRoute('admin');
+        }
         return $this->render('BasketballBundle:Main:edit_game.html.twig', array(
-            // ...
+            'form' => $form->createView()
         ));
     }
 
     /**
-     * @Route("/deleteGame")
+     * @Route("/deleteGame/{id}", name="deleteGame")
      */
-    public function deleteGameAction()
+    public function deleteGameAction($id)
     {
-        return $this->render('BasketballBundle:Main:delete_game.html.twig', array(
-            // ...
-        ));
+        $game = $this->getDoctrine()->getRepository('BasketballBundle:Game')->find($id);
+        $em = $this->getDoctrine()->getManager();
+        if (!$game) {
+            throw new NotFoundHttpException("Nie znaleziono meczu o podanym id!");
+        }
+
+        $em->remove($game);
+        $em->flush();
+
+        return $this->redirectToRoute('admin');
     }
 
     /**
@@ -185,22 +200,13 @@ class MainController extends Controller
     }
 
     /**
-     * @Route("/showPlayer")
-     */
-    public function ahowPlayerAction()
-    {
-        return $this->render('BasketballBundle:Main:show_player.html.twig', array(
-            // ...
-        ));
-    }
-
-    /**
      * @Route("/showAllPlayers")
      */
     public function showAllPlayersAction()
     {
+        $allPlayers = $this->getDoctrine()->getRepository('BasketballBundle:Player')->findAll();
         return $this->render('BasketballBundle:Main:show_all_players.html.twig', array(
-            // ...
+            'allPlayers' => $allPlayers
         ));
     }
 
