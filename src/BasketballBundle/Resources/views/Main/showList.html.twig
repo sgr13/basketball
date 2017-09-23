@@ -1,0 +1,41 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}BasketballBundle:Main:showAllPlayers{% endblock %}
+
+{% block body %}
+    <ol>
+        {% for player in players %}
+            {% if player.p1.name is defined %}
+            <li>{{ player.p1.name }} - <a href="{{ path('deleteFromList', {'id': player.p1.id}) }}">Usuń</a> </li>
+            {% endif %}
+            {% if player.p2.name is defined %}
+            <li>{{ player.p2.name }} - <a href="{{ path('deleteFromList', {'id': player.p2.id}) }}">Usuń</a> </li>
+            {% endif %}
+            {% if player.p3.name is defined %}
+            <li>{{ player.p3.name }} - <a href="{{ path('deleteFromList', {'id': player.p3.id}) }}">Usuń</a> </li>
+            {% endif %}
+            {% if player.p4.name is defined %}
+            <li>{{ player.p4.name }} - <a href="{{ path('deleteFromList', {'id': player.p4.id}) }}">Usuń</a> </li>
+            {% endif %}
+            {% if player.p5.name is defined %}
+            <li>{{ player.p5.name }} - <a href="{{ path('deleteFromList', {'id': player.p5.id}) }}">Usuń</a> </li>
+            {% endif %}
+            {% if player.p6.name is defined %}
+            <li>{{ player.p6.name }} - <a href="{{ path('deleteFromList', {'id': player.p6.id}) }}">Usuń</a> </li>
+            {% endif %}
+            {% if player.p7.name is defined %}
+            <li>{{ player.p7.name }} - <a href="{{ path('deleteFromList', {'id': player.p7.id}) }}">Usuń</a> </li>
+            {% endif %}
+            {% if player.p8.name is defined %}
+            <li>{{ player.p8.name }} - <a href="{{ path('deleteFromList', {'id': player.p8.id}) }}">Usuń</a> </li>
+            {% endif %}
+            {% if player.p9.name is defined %}
+            <li>{{ player.p9.name }} - <a href="{{ path('deleteFromList', {'id': player.p9.id}) }}">Usuń</a> </li>
+            {% endif %}
+            {% if player.p10.name is defined %}
+            <li>{{ player.p10.name }} - <a href="{{ path('deleteFromList', {'id': player.p10.id}) }}">Usuń</a> </li>
+            {% endif %}
+        {% endfor %}
+    </ol>
+    <h3><a href="">Dodaj</a> zawodnika do listy:</h3>
+{% endblock %}

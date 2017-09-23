@@ -125,9 +125,7 @@ class MainController extends Controller
      */
     public function adminAction()
     {
-        return $this->render('BasketballBundle:Main:admin.html.twig', array(
-
-        ));
+        return $this->render('BasketballBundle:Main:admin.html.twig', array());
     }
 
     /**
@@ -210,4 +208,24 @@ class MainController extends Controller
         ));
     }
 
+    /**
+     * @Route("/showList", name="showList")
+     */
+    public function showListAction(Request $request)
+    {
+        $players = $this->getDoctrine()->getRepository('BasketballBundle:ActualList')->findAll();
+
+        return $this->render('BasketballBundle:Main:showList.html.twig', array(
+            'players' => $players
+        ));
+    }
+
+    /**
+     * @Route("deleteFromList/{id}", name="deleteFromList")
+     */
+    public  function deleteFromListAction($id)
+    {
+        var_dump($id); die();
+        return $this->redirectToRoute('showList');
+    }
 }

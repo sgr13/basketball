@@ -13,6 +13,11 @@ use Doctrine\ORM\Mapping as ORM;
 class Player
 {
     /**
+     * @ORM\OneToMany(targetEntity="ActualList", mappedBy="player")
+     */
+    private $actualList;
+
+    /**
      * @ORM\OneToMany(targetEntity="Game", mappedBy="player")
      */
     private $game;
