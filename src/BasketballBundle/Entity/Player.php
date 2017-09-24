@@ -12,10 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Player
 {
-    /**
-     * @ORM\OneToMany(targetEntity="ActualList", mappedBy="player")
-     */
-    private $actualList;
 
     /**
      * @ORM\OneToMany(targetEntity="Game", mappedBy="player")
@@ -67,19 +63,21 @@ class Player
     private $height;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="position", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="Position", inversedBy="player")
      */
     private $position;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="bestIn", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="Specialisation", inversedBy="player")
      */
-    private $bestIn;
+    private $specialisation;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="status" ,type="integer", options={"default" : 0})
+     */
+    private $status;
 
     /**
      * Get id
@@ -230,25 +228,50 @@ class Player
     }
 
     /**
-     * Set bestIn
-     *
-     * @param string $bestIn
-     * @return Player
+     * @return mixed
      */
-    public function setBestIn($bestIn)
+    public function getSpecialisation()
     {
-        $this->bestIn = $bestIn;
-
-        return $this;
+        return $this->specialisation;
     }
 
     /**
-     * Get bestIn
-     *
-     * @return string 
+     * @param mixed $specialisation
      */
-    public function getBestIn()
+    public function setSpecialisation($specialisation)
     {
-        return $this->bestIn;
+        $this->specialisation = $specialisation;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGame()
+    {
+        return $this->game;
+    }
+
+    /**
+     * @param mixed $game
+     */
+    public function setGame($game)
+    {
+        $this->game = $game;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param int $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
     }
 }

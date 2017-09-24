@@ -85,6 +85,7 @@ class MainController extends Controller
 
         if ($form->isSubmitted()) {
             $player = $form->getData();
+            $player->setStatus(0);
             $em = $this->getDoctrine()->getManager();
             $em->persist($player);
             $em->flush();
@@ -206,26 +207,5 @@ class MainController extends Controller
         return $this->render('BasketballBundle:Main:show_all_players.html.twig', array(
             'allPlayers' => $allPlayers
         ));
-    }
-
-    /**
-     * @Route("/showList", name="showList")
-     */
-    public function showListAction(Request $request)
-    {
-        $players = $this->getDoctrine()->getRepository('BasketballBundle:ActualList')->findAll();
-
-        return $this->render('BasketballBundle:Main:showList.html.twig', array(
-            'players' => $players
-        ));
-    }
-
-    /**
-     * @Route("deleteFromList/{id}", name="deleteFromList")
-     */
-    public  function deleteFromListAction($id)
-    {
-        var_dump($id); die();
-        return $this->redirectToRoute('showList');
     }
 }
