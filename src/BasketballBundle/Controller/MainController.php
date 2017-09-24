@@ -138,6 +138,15 @@ class MainController extends Controller
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(new BasketballType(), $player);
         $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            $em = $this->getDoctrine()->getManager();
+            $player = $form->getData();
+            $em->persist($player);
+            $em->flush();
+
+            return $this->redirectToRoute('admin');
+        }
         return $this->render('BasketballBundle:Main:edit_player.html.twig', array(
             'form' => $form->createView()
         ));
