@@ -14,6 +14,7 @@ class BasketballType extends AbstractType
         $builder
             ->add('name', 'text', array('label' => 'Imię:'))
             ->add('nickname', 'text', array('label' => 'Nick:'))
+            ->add('password', 'password', array('label' => 'Hasło:'))
             ->add('height', 'text', array('label' => 'Wzrost:'))
             ->add('position', 'text', array('label' => 'Pozycja:'))
             ->add('position', EntityType::class, array(
@@ -25,6 +26,15 @@ class BasketballType extends AbstractType
                 'class' => 'BasketballBundle:Specialisation',
                 'choice_label' => 'name', 'label' => 'Mocna strona:'))
             ->add('save', 'submit', array('label' => 'Dodaj'));
+
+        if ($options['noPhoto']) {
+            $builder->remove('mainPhoto')
+                    ->remove(('secondPhoto'));
+        }
+
+        if ($options['admin']) {
+            $builder->remove('password');
+        }
     }
 
     public function getName()
@@ -35,7 +45,9 @@ class BasketballType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'BasketballBundle\Entity\Player'
+            'data_class' => 'BasketballBundle\Entity\Player',
+            'noPhoto' => false,
+            'admin' => false
         ));
     }
 }

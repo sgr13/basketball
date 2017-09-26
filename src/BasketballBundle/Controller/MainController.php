@@ -46,7 +46,7 @@ class MainController extends Controller
 
         if ($gameType != null) {
             $form = $this->createForm(new TeamType(), $game, array(
-                $gameType => true
+                $gameType => true,
             ));
             $session->set('gameType', $gameType);
 
@@ -80,7 +80,9 @@ class MainController extends Controller
     public function addPlayerAction(Request $request)
     {
         $player = new Player();
-        $form = $this->createForm(BasketballType::class, $player);
+        $form = $this->createForm(new BasketballType(), $player, array(
+            'admin' =>true
+        ));
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
@@ -136,7 +138,9 @@ class MainController extends Controller
     {
         $player = $this->getDoctrine()->getRepository('BasketballBundle:Player')->find($id);
         $em = $this->getDoctrine()->getManager();
-        $form = $this->createForm(new BasketballType(), $player);
+        $form = $this->createForm(new BasketballType(), $player, array(
+            'admin' => true,
+        ));
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
@@ -163,7 +167,8 @@ class MainController extends Controller
         }
         $gameType = $game->getGameType();
         $form = $this->createForm(new TeamType(), $game, array(
-            $gameType => true
+            $gameType => true,
+            'admin' =>true
         ));
         $form->handleRequest($request);
         if ($form->isSubmitted()) {

@@ -44,6 +44,13 @@ class Player
     /**
      * @var string
      *
+     * @ORM\Column(name="password", type="string", length=100)
+     */
+    private $password;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="mainPhoto", type="string", length=255)
      */
     private $mainPhoto;
@@ -274,4 +281,22 @@ class Player
     {
         $this->status = $status;
     }
+
+    /**
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
+
 }
