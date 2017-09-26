@@ -28,6 +28,12 @@ class UserController extends Controller
             $player->setSecondPhoto('');
             $player->setStatus(0);
 
+            if ($player->getPassword() == null) {
+                return $this->render('BasketballBundle:User:register.html.twig', array(
+                    'form' => $form->createView(),
+                ));
+            }
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($player);
             $em->flush();

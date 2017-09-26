@@ -6,6 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class BasketballType extends AbstractType
 {
@@ -14,7 +16,13 @@ class BasketballType extends AbstractType
         $builder
             ->add('name', 'text', array('label' => 'Imię:'))
             ->add('nickname', 'text', array('label' => 'Nick:'))
-            ->add('password', 'password', array('label' => 'Hasło:'))
+            ->add('password', RepeatedType::class, array(
+                'type' => PasswordType::class,
+                'invalid_message' => 'Hasło jest niezgodne!',
+                'options' => array('attr' => array('class' => 'password-field')),
+                'required' => true,
+                'first_options' => array('label' => 'Hasło'),
+                'second_options' => array('label' => 'Powtórz haslo:')))
             ->add('height', 'text', array('label' => 'Wzrost:'))
             ->add('position', 'text', array('label' => 'Pozycja:'))
             ->add('position', EntityType::class, array(
@@ -33,7 +41,8 @@ class BasketballType extends AbstractType
         }
 
         if ($options['admin']) {
-            $builder->remove('password');
+            $builder->remove('password')
+                    ->remove('confirm');
         }
     }
 
